@@ -1,0 +1,58 @@
+﻿<Window x:Class="Paint.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Paint"
+        Title="Paint" Height="500" Width="800">
+    <Window.CommandBindings>
+        <CommandBinding Command="local:PaintCanvasCommands.ClearCanvas" 
+                        CanExecute="AlwaysExecutableCommand" 
+                        Executed="ClearCanvas_Executed" />
+        <CommandBinding Command="local:PaintCanvasCommands.UndoCanvas" 
+                        CanExecute="UndoCanvas_CanExecute"
+                        Executed="UndoCanvas_Executed" />
+        <CommandBinding Command="local:PaintCanvasCommands.ChangeToPencil" 
+                        CanExecute="AlwaysExecutableCommand"
+                        Executed="setPaintObjectType" />
+        <CommandBinding Command="local:PaintCanvasCommands.ChangeToEraser" 
+                        CanExecute="AlwaysExecutableCommand"
+                        Executed="setPaintObjectType" />
+        <CommandBinding Command="local:PaintCanvasCommands.ChangeToLine" 
+                        CanExecute="AlwaysExecutableCommand"
+                        Executed="setPaintObjectType" />
+    </Window.CommandBindings>
+    <Grid x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="ControlPanel" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="ActionRBGroupPanel" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <RadioButton x:Name="PencilRB" GroupName="PaintOptions" Content="Pencil" FontWeight="Bold"
+                             IsChecked="True" Command="local:PaintCanvasCommands.ChangeToPencil"
+                             Margin="5"/>
+                <RadioButton x:Name="EraserRB" GroupName="PaintOptions" Content="Eraser" FontWeight="Bold"
+                             Command="local:PaintCanvasCommands.ChangeToEraser"
+                             Margin="5"/>
+                <RadioButton x:Name="LineRB" GroupName="PaintOptions" Content="Line" FontWeight="Bold" Command="local:PaintCanvasCommands.ChangeToLine"
+                             Margin="5"/>
+            </StackPanel>
+
+            <local:ColorPanel x:Name="ColorSliderPanel" Grid.Row="1"
+                              ColorChanged="SetPaintColor" />
+
+            <StackPanel x:Name="ButtonPanel" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button x:Name="ClearButton" Width="150" Height="30" Content="Clear the canvas" Command="local:PaintCanvasCommands.ClearCanvas" />
+                <Button x:Name="UndoButton" Width="150" Height="30" Content="Undo my last stroke" Command="local:PaintCanvasCommands.UndoCanvas"/>
+            </StackPanel>
+        </Grid>
+
+        <local:PaintCanvas x:Name="DrawingCanvas" Background="AliceBlue" Grid.Column="1"/>
+    </Grid>
+</Window>
