@@ -8,7 +8,7 @@ using System.Windows.Media;
 using System.Windows;
 using System.Reflection;
 
-namespace Paint
+namespace Paint.PaintUtils
 {
     public class PaintObjectConstructor
     {
