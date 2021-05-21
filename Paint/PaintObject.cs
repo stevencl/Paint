@@ -13,7 +13,7 @@ namespace Paint
     public abstract class PaintObject
     {
 
-        protected double thickness; //here is a comment inside the 
+        protected double thickness; //updated a comment
         protected Color color;
 
         public virtual void setColor(Color color) { this.color = color; }
