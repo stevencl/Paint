@@ -36,10 +36,10 @@ namespace Paint
             objectConstructor.setColor(ColorSliderPanel.getStartingColor());
             objectConstructor.setThickness(5);
 
-            ((PaintCanvas)DrawingCanvas).MouseLeave += new MouseEventHandler(objectConstructor.MouseExited);
-            ((PaintCanvas)DrawingCanvas).MouseDown += new MouseButtonEventHandler(objectConstructor.MousePressed);
-            ((PaintCanvas)DrawingCanvas).MouseUp += new MouseButtonEventHandler(objectConstructor.MouseReleased);
-            ((PaintCanvas)DrawingCanvas).MouseMove += new MouseEventHandler(objectConstructor.MouseMoved);
+            DrawingCanvas.MouseLeave += new MouseEventHandler(objectConstructor.MouseExited);
+            DrawingCanvas.MouseDown += new MouseButtonEventHandler(objectConstructor.MousePressed);
+            DrawingCanvas.MouseUp += new MouseButtonEventHandler(objectConstructor.MouseReleased);
+            DrawingCanvas.MouseMove += new MouseEventHandler(objectConstructor.MouseMoved);
         }
 
         // Call this method when the radio buttons change (pencil / line / eraser)
@@ -55,35 +55,36 @@ namespace Paint
 
         public void constructionBeginning(PaintObject temporaryObject)
         {
-            ((PaintCanvas)DrawingCanvas).setTemporaryObject(temporaryObject);
+            //((PaintCanvas)DrawingCanvas).setTemporaryObject(temporaryObject);
+            DrawingCanvas.setTemporaryObject(temporaryObject);
         }
 
         public void constructionContinuing(PaintObject temporaryObject)
         {
-            ((PaintCanvas)DrawingCanvas).setTemporaryObject(temporaryObject); //
+            DrawingCanvas.setTemporaryObject(temporaryObject); //
         }
 
         public void constructionComplete(PaintObject finalObject)
         {
-            ((PaintCanvas)DrawingCanvas).setTemporaryObject(null);
-            ((PaintCanvas)DrawingCanvas).addPaintObject(finalObject);
+            DrawingCanvas.setTemporaryObject(null);
+            DrawingCanvas.addPaintObject(finalObject);
         }
 
         public void hoveringOverConstructionArea(PaintObject hoverObject)
         {
-            ((PaintCanvas)DrawingCanvas).setHoveringObject(hoverObject);
+            DrawingCanvas.setHoveringObject(hoverObject);
         }
 
         public IInputElement InputElement
         {
-            get { return ((PaintCanvas)DrawingCanvas); }
+            get { return DrawingCanvas; }
         }
 
         private void UndoCanvas_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            if (((PaintCanvas)DrawingCanvas) != null)
+            if (DrawingCanvas != null)
             {
-                e.CanExecute = ((PaintCanvas)DrawingCanvas).sizeOfHistory() > 0;
+                e.CanExecute = DrawingCanvas.sizeOfHistory() > 0;
             }
         }
 
@@ -94,17 +95,17 @@ namespace Paint
 
         private void ClearCanvas_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (((PaintCanvas)DrawingCanvas) != null)
+            if (DrawingCanvas != null)
             {
-                ((PaintCanvas)DrawingCanvas).clear();
+                DrawingCanvas.clear();
             }
         }
 
         private void UndoCanvas_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (((PaintCanvas)DrawingCanvas) != null)
+            if (DrawingCanvas != null)
             {
-                ((PaintCanvas)DrawingCanvas).undo();
+                DrawingCanvas.undo();
             }
         }
 
